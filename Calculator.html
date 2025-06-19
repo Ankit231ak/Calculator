@@ -3,81 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Simple Calculator</title>
+  <title>Calculator</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  
 
-  <style>
-    * {
-      user-select: none;
-    }
-
-    body {
-      background-color: #292929;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    .bodyCal {
-      border: solid 3px #6d6d6d;
-      border-radius: 15px;
-      width: 320px;
-      padding-bottom: 20px;
-    }
-
-    #show {
-      height: 90px;
-      width: 300px;
-      border: solid 4px rgba(0, 0, 0, 0.445);
-      border-radius: 15px;
-      margin: 17px auto 0 auto;
-      color: white;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.5rem;
-      padding: 20px;
-      text-align: left;
-      background-color: #1d1d1d;
-      box-sizing: border-box;
-      overflow-x: auto;
-      white-space: nowrap;
-      caret-color: transparent;
-      display: block;
-    }
-
-    button {
-      height: 60px;
-      width: 60px;
-      margin: 10px;
-      border-radius: 5px;
-      font-size: 25px;
-      font-weight: 500;
-      background-color: #303030;
-      color: white;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.1s ease;
-    }
-
-    button:hover {
-      transform: scale(1.1);
-      color: #00bfff;
-      border: solid 2px white;
-    }
-
-    .operator {
-      background-color: #b35a25;
-    }
-
-    .btn-row {
-      display: flex;
-      justify-content: center;
-    }
-  </style>
+  <link rel="stylesheet" href="calStyle.css">
 </head>
 
-<body onkeydown="handleKeyPress(event);">
+<body onkeydown="handleKeyPress(event)">
   <div class="bodyCal">
     <input id="show" readonly placeholder="0" />
 
@@ -117,58 +50,6 @@
 
 
 
-  <script>
-    let calculation = JSON.parse(localStorage.getItem('calculation')) || '';
-
-    function updateCalculation(value) {
-      calculation += value;
-      localStorage.setItem('calculation', JSON.stringify(calculation));
-      const display = document.getElementById('show');
-      display.value = calculation;
-      display.scrollLeft = display.scrollWidth;
-    }
-
-    function calculateResult() {
-      try {
-        calculation = eval(calculation).toString();
-        localStorage.setItem('calculation', JSON.stringify(calculation));
-        const display = document.getElementById('show');
-        display.value = calculation;
-        display.scrollLeft = display.scrollWidth;
-      } catch (e) {
-        calculation = '';
-        document.getElementById('show').value = 'Error';
-      }
-    }
-
-    function clearCalculation() {
-      calculation = '';
-      localStorage.setItem('calculation', JSON.stringify(calculation));
-      document.getElementById('show').value = '';
-    }
-
-    function handleKeyPress(event) {
-      event.preventDefault();
-      const key = event.key;
-      const allowedKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '/', '*', '-', '+'];
-
-      if (allowedKeys.includes(key)) {
-        updateCalculation(key);
-      } else if (key === 'Enter') {
-        calculateResult();
-      } else if (key === 'Backspace') {
-        backspace()
-        
-      }
-    }
-      function backspace(){
-          calculation = calculation.slice(0, -1);
-          localStorage.setItem('calculation', JSON.stringify(calculation));
-          document.getElementById('show').value = calculation;
-      }
-
-    // Initialize the display with saved calculation
-    document.getElementById('show').value = calculation;
-  </script>
+  <script src="calScript.js"></script>
 </body>
 </html>
